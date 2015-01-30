@@ -19,7 +19,7 @@ class Log{
 	/*
 	 * Proxy for Yii::error method, that also sends exception data to Sentry
 	 */
-	public static function error($message,$category,$exception=null){
+	public static function error($message,$category = 'application',$exception=null){
 		Yii::error($message,$category);
 		self::sendException($message,$category,$exception);
 	}
@@ -27,7 +27,7 @@ class Log{
 	/*
     * Proxy for Yii::warning method, that also sends exception data to Sentry
     */
-	public static function warning($message,$category,$exception=null){
+	public static function warning($message,$category = 'application',$exception=null){
 		Yii::warning($message,$category);
 		self::sendException($message,$category,$exception);
 	}
@@ -35,7 +35,7 @@ class Log{
 	/*
     * Proxy for Yii::info method, that also sends exception data to Sentry
     */
-	public static function info($message,$category,$exception=null){
+	public static function info($message,$category = 'application',$exception=null){
 		Yii::info($message,$category);
 		self::sendException($message,$category,$exception);
 	}
@@ -43,7 +43,7 @@ class Log{
 	/*
     * Proxy for Yii::trace method, that also sends exception data to Sentry
     */
-	public static function trace($message,$category,$exception=null){
+	public static function trace($message,$category = 'application',$exception=null){
 		Yii::trace($message,$category);
 		self::sendException($message,$category,$exception);
 	}
