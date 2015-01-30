@@ -80,10 +80,6 @@ class Target extends \yii\log\Target
                     $new_extras = $msg['data'];
                     unset($msg['data']);
                 }
-                if (isset($msg['exception'])) {
-                    $new_exception = $msg['exception'];
-                    unset($msg['exception']);
-                }
                 if (isset($msg['msg'])) {
                     $new_msg = $msg['msg'];
                     unset($msg['msg']);
@@ -109,16 +105,10 @@ class Target extends \yii\log\Target
                 $data['extra'] = array_merge($new_extras, $this->client->tags, $this->client->context->tags);
             }
 
-            if (!empty($new_exception)) {
+            if (!empty($traces)) {
                 $data['sentry.interfaces.Stacktrace'] = [
-                    'frames' => Raven_Stacktrace::get_stack_info($new_exception),
+                    'frames' => Raven_Stacktrace::get_stack_info($traces),
                 ];
-            }else {
-                if (!empty($traces)) {
-                    $data['sentry.interfaces.Stacktrace'] = [
-                        'frames' => Raven_Stacktrace::get_stack_info($traces),
-                    ];
-                }
             }
 
             $this->client->capture($data, false);
