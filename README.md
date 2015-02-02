@@ -108,6 +108,11 @@ class SyslogJsonTarget extends \yii\log\SyslogTarget
 }
 ```
 
+## Data precautions
+
+*  Avoid passing resources and objects that can not be serialized in the array or rewrite formatMessage to handle that, e.g. trying to serialize PDO instance will raise fatal PHP error. Native Yii log targets will try to serialize that. One can check <http://github.com/raven/raven> to see how it sanitizes and handles these cases and use it's static methods.
+*  Also check how raven can filter out private data such as password or sensitive financial requisites.
+
 ## Inspired by
 
 *  <https://github.com/E96/yii2-sentry>
