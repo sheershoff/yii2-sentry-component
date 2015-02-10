@@ -69,14 +69,21 @@ try{
 There are proxy methods in `Log` for the four Yii static methods: `error`, `warning`, `info`, `trace`. If `$e` is not null the component expects that it is an exception and after calling the
 corresponding Yii method also captures the exception for Sentry.
 
-Also, the following use case is also possible:
+Also, the following use cases are possible:
 
 ```php
-/** @var ErrorHandler $raven */
-$raven = \Yii::$app->get('raven');
-$raven->client->extra_context($task->attributes);
-
+SentryHelper::extraData($task->attributes);
 throw new Exception('unknown task type');
+```
+
+Or just capture a message with full stacktrace:
+
+```php
+try {
+    throw new Exception('FAIL');
+} catch (Exception $e) {
+    SentryHelper::captureWithMessage('Fail to save model', $e);
+}
 ```
 
 ## Other log targets
@@ -85,9 +92,7 @@ To use the power of the component you should keep in mind that other log targets
 
 ```php
 namespace common\components;
-
 use Yii;
-
 class SyslogJsonTarget extends \yii\log\SyslogTarget
 {
 	/**
