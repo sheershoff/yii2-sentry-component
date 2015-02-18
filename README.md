@@ -1,1 +1,1 @@
-Yii2 sentry component has moved to https://github.com/E96/yii2-sentry
+Yii2 sentry component has moved to https://github.com/sheershoff/yii2-sentry
